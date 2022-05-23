@@ -1,0 +1,12 @@
+Stages of relational database design
+
+    1. Define the purpose/ entities of the relational DB
+    2. Identify primary keys
+    3. Establish table relationships
+    4. Apply normalization rules
+
+How to install sequalize 
+
+    npm install sequelize@^5.0.0
+    npm install sequelize-cli@^5.0.0
+    npm install pg@^8.0.0

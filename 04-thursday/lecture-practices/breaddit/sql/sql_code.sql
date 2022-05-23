@@ -96,13 +96,20 @@ VALUES
 -- ORDER BY name DESC
 -- LIMIT 1;
 
+-- Task 5a
+-- UPDATE players
+-- SET prefers_video_games = true
+-- WHERE name IN ('Alec', 'Geoff');
+
+-- Task 5b
+-- DELETE FROM boardgames
+-- WHERE avg_rating < 8.3;
+
 -- Task 6a
--- SELECT * FROM boardgames
+-- SELECT *
+-- FROM boardgames
 -- JOIN reviews ON (boardgames.id = reviews.boardgame_id)
 -- WHERE boardgames.id = 5;
-
-
--- JOIN TABLE
 
 CREATE TABLE lfg (
     id SERIAL PRIMARY KEY,
@@ -123,39 +130,36 @@ VALUES
     (6, 4),
     (1, 4);
 
-    -- SELECT  boardgames.name, boardgames.id, lfg.game_id, lfg.player_id, players.id, players.name 
-    -- FROM boardgames
-    -- JOIN lfg ON (boardgames.id = lfg.game_id)
-    -- JOIN players ON (lfg.player_id = players.id)
-    -- WHERE boardgames.name = 'Terraforming Mars';
+-- SELECT boardgames.name, boardgames.id, lfg.game_id, lfg.player_id, players.id, players.name 
+-- FROM boardgames
+-- JOIN lfg ON (boardgames.id = lfg.game_id)
+-- JOIN players ON (lfg.player_id = players.id)
+-- WHERE boardgames.name = 'Terraforming Mars';
 
--- find the boargame names with reviews containing a search term
+-- Find the boardgame names with reviews containing a search term
 
-SELECT boardgames.name FROM boardgames
-WHERE boardgames.id IN (
-SELECT boardgame_id FROM reviews
-WHERE content ILIKE 't%'
-);
+-- SELECT boardgames.name FROM boardgames
+-- WHERE boardgames.id IN (
+--     SELECT boardgame_id FROM reviews
+--     WHERE content ILIKE 't%'
+-- );
 
+-- Find player names of all players who want to play Terraforming Mars
 
---find player names of all players who want to play terraforming mars
+-- SELECT players.name FROM players
+-- WHERE players.id IN (
+--     SELECT lfg.player_id FROM lfg
+--     WHERE lfg.game_id = (
+--         SELECT boardgames.id FROM boardgames
+--         WHERE boardgames.name = 'Terraforming Mars'
+--     )
+-- );
 
-
-SELECT players.name FROM players
-WHERE players.id IN (
-    SELECT lfg.player_id FROM lfg
-    WHERE lfg.game_id = (
-        SELECT boardgames.id FROM boardgames
-        WHERE boardgames.name = 'Terraforming Mars'
-        )
-);
-
-
--- find all boardgame names of the catageory a player has selected using their player names
+-- Find all boardgame names of the category a player has selected as their 
+-- favorite using their player name
 
 SELECT boardgames.category, boardgames.name FROM boardgames
 WHERE boardgames.category = (
     SELECT players.fave_category FROM players
     WHERE players.name = 'Ray'
-)
-
+);
